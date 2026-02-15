@@ -4,8 +4,7 @@ Automated daily portfolio reporting on a scheduled EC2 instance, with systemd la
 
 ## The Problem
 
-A client wanted a daily email summary of their $200k investment portfolio delivered automatically after the market closes.
-They needed a reliable, hands-off solution that sends the update each day without any manual steps.
+A client wanted a daily email summary of their $200k investment portfolio delivered automatically after the market closes, with a reliable, hands-off process requiring no manual effort.
 
 ---
 
