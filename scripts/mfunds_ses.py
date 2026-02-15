@@ -9,7 +9,7 @@ RECIPIENTS =["airflow@example.com", "user@comcast.net"]
 AWS_REGION = "us-west-2"
 
 
-# The 18 "Newspaper" Core Mutual Funds
+# The 18 core Mutual Funds
 TICKERS = [
     "VFIAX", "VTSAX", "VIGAX", "VSMAX", "VTIAX", "VBTLX",
     "FXAIX", "FSKAX", "FZROX", "FNILX", "FBGRX", "FDGRX",

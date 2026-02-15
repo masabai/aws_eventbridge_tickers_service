@@ -1,6 +1,6 @@
 sudo tee /etc/systemd/system/mfunds.service <<'EOF'
 [Unit]
-Description=Run mfunds and profile scripts
+Description=Run mfunds and assets scripts
 After=network.target
 
 [Service]

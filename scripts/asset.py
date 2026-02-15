@@ -27,8 +27,8 @@ PORTFOLIO_DATA = {
     "GOEX": (1.88, 174.20)
 }
 
-SENDER = "winthutaye@gmail.com"
-RECIPIENTS =["moesabaiaye@yahoo.com"]# , "sawynnaye@comcast.net"]
+SENDER = "abc@example.com"
+RECIPIENTS =["airflow@abc.com"]
 AWS_REGION = "us-west-2"
 
 
