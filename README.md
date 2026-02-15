@@ -56,7 +56,7 @@ The scripts:
 - Pulls live market prices using the yfinance API.
 - Auto-generates HTML reports and distributes them via Amazon SES.
 - Calculates portfolio value and progress toward the $200k goal.
-- 
+
 ### Reporting
 Clean, easy-to-read email reports were sent using **Amazon SES**.
 
