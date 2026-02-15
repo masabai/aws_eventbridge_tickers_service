@@ -18,8 +18,8 @@ Instead of running continuously, the server wakes up for ~10 minutes per day to 
 graph LR
     A[EventBridge Schedule] -- Start --> B[AWS EC2]
     B --> C(Python Script)
-    C --> D{Ticker Mapping Logic}
-    D -->|Corrected| E[Cost-Basis Report]
+    C --> D{Ticker Mapping}
+    D -->E[Cost-Basis Report]
     E --> F[Automated Email]
     B -- Stop --> A
 
@@ -41,14 +41,15 @@ AWS EventBridge starts the EC2 instance at a scheduled time.
 When Linux boots, a **systemd service** automatically launches the Python scripts.
 
 ### Processing Logic
+
 The scripts:
 
-- pull live market prices  
-- resolve ticker collisions and data anomalies  
-- calculate portfolio value and progress toward the $200k goal  
-
+- Pulls live market prices using the yfinance API.
+- Auto-generates HTML reports and distributes them via Amazon SES.
+- Calculates portfolio value and progress toward the $200k goal.
+- 
 ### Reporting
-A clean, easy-to-read email report is sent using **Amazon SES**.
+Clean, easy-to-read email reports were sent using **Amazon SES**.
 
 ### Shutdown
 A second EventBridge rule stops the instance to minimize compute costs.
