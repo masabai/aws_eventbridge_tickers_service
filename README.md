@@ -1,12 +1,12 @@
 # Scheduled Portfolio Tracker (AWS EC2 + Python)
 
 ## The Problem
-I have a client who needs a daily email update on their **$200k portfolio**, but they didn't want to pay for
+A client who needs a daily email update on their **$200k portfolio**, but they didn't want to pay for
 a server running 24/7.
 ---
 
-## What I Built
-I designed a **Start → Run → Stop** automation system on AWS.
+## The Solution
+Designed a **Start → Run → Stop** automation system on AWS.
 
 Instead of running continuously, the server wakes up for ~10 minutes per day to complete the task and then shuts down.
 
@@ -37,8 +37,17 @@ graph LR
 ### Trigger
 AWS EventBridge starts the EC2 instance at a scheduled time.
 
+
+![Start Instance](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/start_instance.png)
+
+
 ### Execution
 When Linux boots, a **systemd service** automatically launches the Python scripts.
+
+## Systemd Service Status
+
+
+![mfunds service](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/mfunds_service.png)
 
 ### Processing Logic
 
@@ -51,12 +60,21 @@ The scripts:
 ### Reporting
 Clean, easy-to-read email reports were sent using **Amazon SES**.
 
+
+![Portfolio Report](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/portfolio_report.png)
+
+
 ### Shutdown
 A second EventBridge rule stops the instance to minimize compute costs.
 
+
+## EventBridge Schedule
+
+![EventBridge Schedule](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/event_bridge_schedule.png)
+
 ---
 
-## Problems Solved
+## Technical Solutions
 
 **Linux Automation**  
 Configured systemd to ensure scripts execute immediately at boot.
