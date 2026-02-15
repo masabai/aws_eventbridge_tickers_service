@@ -3,8 +3,10 @@ Automated daily portfolio reporting on a scheduled EC2 instance, with systemd la
 
 
 ## The Problem
-A client who needs a daily email update on their **$200k portfolio**, but they didn't want to pay for
-a server running 24/7.
+
+A client wanted a daily email summary of their $200k investment portfolio delivered automatically after the market closes.
+They needed a reliable, hands-off solution that sends the update each day without any manual steps.
+
 ---
 
 ## The Solution
@@ -39,6 +41,7 @@ graph LR
 ### Trigger
 AWS EventBridge starts the EC2 instance at a scheduled time.
 
+## EventBridge Start Instance
 
 ![Start Instance](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/start_instance.png)
 
