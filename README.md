@@ -12,6 +12,26 @@ I designed a **Start → Run → Stop** automation system on AWS.
 
 Instead of running continuously, the server wakes up for ~10 minutes per day to complete the task and then shuts down.
 
+
+## Ticker Flow
+
+
+```mermaid
+graph LR
+    A[EventBridge Schedule] -- Start --> B[AWS EC2]
+    B --> C(Python Script)
+    C --> D{Ticker Mapping Logic}
+    D -->|Corrected| E[Cost-Basis Report]
+    E --> F[Automated Email]
+    B -- Stop --> A
+
+    style B fill:#f90,stroke:#333,color:#fff
+    style D fill:#4a148c,stroke:#333,color:#fff
+    style F fill:#1b5e20,stroke:#333,color:#fff
+```
+
+
+
 ---
 
 ## How It Works
@@ -47,18 +67,6 @@ Implemented logic to distinguish securities sharing identical tickers across exc
 
 **Secure Permissions**  
 Configured IAM roles to allow AWS services to communicate securely.
-
----
-
-## Resume Version (Concise)
-
-**Portfolio Monitoring Service (AWS & Python)**  
-*Oct 2025 – Present*
-
-- Built an AWS EC2 automation system to monitor a $200k+ portfolio and deliver daily email reports.
-- Reduced cloud costs ~95% by scheduling instance runtime with EventBridge.
-- Resolved ticker symbol collisions and cost-basis errors to ensure reporting accuracy.
-- Automated execution using systemd for reliable boot-time processing.
 
 ---
 

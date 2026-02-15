@@ -1,20 +1,34 @@
+"""
+Portfolio Reporting Service
+---------------------------
+Generates a daily portfolio valuation report and emails results via Amazon SES.
+
+This script is designed to run automatically on EC2 via systemd and
+scheduled start/stop using AWS EventBridge.
+
+NOTE:
+Portfolio holdings, values, and email recipients are DEMONSTRATION DATA ONLY.
+This project showcases automation, reporting, and AWS service integration.
+"""
+
 import yfinance as yf
 import boto3
 from datetime import datetime
 
 # --- CONFIGURATION
+# Verified Data for Friday, Feb 13, 2026
 PORTFOLIO_DATA = {
     # TICKER: (SHARES, TOTAL_ORIGINAL_COST)
-    "NVDA": (500.00, 75000.00),   # NVIDIA - AI Infrastructure Leader
-    "PLTR": (1200.00, 45000.00),  # Palantir - Enterprise AI Growth
-    "TSM":  (300.00, 52000.00),   # TSMC - Global Chip Foundry
-    "RKLB": (1500.00, 18000.00),  # Rocket Lab - Space Systems Momentum
-    "AVGO": (40.00, 48000.00),    # Broadcom - AI Networking/Infrastructure
-    "RDDT": (250.00, 22000.00)    # Reddit - High-Growth Data/AI Sentiment
+    "BBUS": (1230.62, 151905.94),
+    "BBIN": (412.84, 32411.71),
+    "VTIAX": (241.85, 10426.69),
+    "BBCA": (31.47, 3043.20),
+    "SHLD": (6.05, 446.34),
+    "GOEX": (1.88, 174.20)
 }
 
-SENDER = "us_west_user@aws.com"
-RECIPIENTS =["airflow@example.com", "user@comcast.net"]
+SENDER = "winthutaye@gmail.com"
+RECIPIENTS =["moesabaiaye@yahoo.com"]# , "sawynnaye@comcast.net"]
 AWS_REGION = "us-west-2"
 
 

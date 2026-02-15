@@ -4,9 +4,10 @@ from botocore.exceptions import ClientError
 from datetime import datetime
 
 # --- CONFIGURATION ---
+SENDER = "ariflow@abc.com"
 RECIPIENTS =["airflow@example.com", "user@comcast.net"]
 AWS_REGION = "us-west-2"
-AWS_REGION = "us-west-2"
+
 
 # The 18 "Newspaper" Core Mutual Funds
 TICKERS = [
