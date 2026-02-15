@@ -1,0 +1,71 @@
+import yfinance as yf
+import boto3
+from datetime import datetime
+
+# --- CONFIGURATION
+PORTFOLIO_VALUES = {
+    "BBUS": 151492.16, "BBIN": 32585.46, "VTIAX": 10670.45,
+    "BBCA": 3029.76, "SHLD": 437.16, "GOEX": 179.98
+}
+SENDER = "winthutaye@gmail.com"
+#RECIPIENT = "winthutaye@gmail.com"
+RECIPIENT = "moesabaiaye@yahoo.com"
+
+
+def run_portfolio_report():
+    now = datetime.now().strftime("%A, %b %d, %Y")
+    total_val, total_change = 0, 0
+
+    # Building HTML Table for SES
+    html_rows = ""
+    for ticker, current_val in PORTFOLIO_VALUES.items():
+        t = yf.Ticker(ticker)
+        price, prev = t.fast_info.last_price, t.fast_info.previous_close
+        day_pct = ((price - prev) / prev) * 100
+        day_cash = current_val * (day_pct / 100)
+        total_val += current_val
+        total_change += day_cash
+        color = "green" if day_pct >= 0 else "red"
+
+        html_rows += f"""
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><b>{ticker}</b></td>
+            <td style="padding:8px; border:1px solid #ddd;">${current_val:,.2f}</td>
+            <td style="padding:8px; border:1px solid #ddd; color:{color};">{day_pct:+.2f}%</td>
+            <td style="padding:8px; border:1px solid #ddd; color:{color};">${day_cash:+,.2f}</td>
+        </tr>"""
+
+    progress = (total_val / 200000) * 100
+    html_body = f"""
+    <html><body>
+    <h2>Portfolio Snapshot: {now}</h2>
+    <table style="border-collapse:collapse; width:100%; font-family:monospace;">
+        <tr style="background-color:#f2f2f2;">
+            <th style="padding:8px; border:1px solid #ddd;">TICKER</th>
+            <th style="padding:8px; border:1px solid #ddd;">VALUE</th>
+            <th style="padding:8px; border:1px solid #ddd;">DAY %</th>
+            <th style="padding:8px; border:1px solid #ddd;">DAY +/-</th>
+        </tr>
+        {html_rows}
+    </table>
+    <p><b>Total: ${total_val:,.2f}</b> | <b>Progress: {progress:.1f}%</b></p>
+    </body></html>"""
+
+    # --- SEND VIA SES
+    ses = boto3.client('ses', region_name='us-west-2')
+    try:
+        ses.send_email(
+            Source=SENDER,
+            Destination={'ToAddresses': [RECIPIENT]},
+            Message={
+                'Subject': {'Data': f"Portfolio Goal Progress: {progress:.1f}%"},
+                'Body': {'Html': {'Data': html_body}}
+            }
+        )
+        print("✅ Professional HTML Report Sent via SES!")
+    except Exception as e:
+        print(f"❌ SES Error: {e}")
+
+
+if __name__ == "__main__":
+    run_portfolio_report()

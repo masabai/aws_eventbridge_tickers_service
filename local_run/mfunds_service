@@ -1,0 +1,42 @@
+# sudo tee version is cleaner because it completely replaces the old file,  no nano edit
+#############################################################################################
+# systemd is the default system and service manager, starts, stops, and manages services
+#############################################################################################
+
+sudo tee /etc/systemd/system/mfunds.service <<'EOF'
+[Unit]
+Description=Run mfunds and profile scripts
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/ticker
+
+# FIX: Use ; instead of && so both scripts run regardless of errors
+ExecStart=/bin/bash -c "/usr/bin/python3 mfunds_ses.py; /usr/bin/python3 asset.py"
+StandardOutput=append:/home/ec2-user/gx.log
+StandardError=append:/home/ec2-user/gx.log
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# RELOAD AND ENABLE
+sudo systemctl daemon-reload
+sudo systemctl enable mfunds.service
+sudo systemctl restart mfunds.service
+#############################################################################################
+# After you run the tee command, don't forget to tell the system to look at the new version:
+# Reload and restart the service:
+sudo systemctl daemon-reload
+sudo systemctl restart mfunds.service
+
+ OR
+
+sudo systemctl daemon-reload && sudo systemctl enable mfunds.service && sudo systemctl start mfunds.service
+
+# check files
+cat /etc/systemd/system/mfunds.service | grep ExecStart
+
+#double-check the logs one last time to see if there were any silent warnings:
+tail -n 20 /home/ec2-user/gx.log

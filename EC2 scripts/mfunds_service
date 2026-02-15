@@ -1,0 +1,22 @@
+sudo tee /etc/systemd/system/mfunds.service <<'EOF'
+[Unit]
+Description=Run mfunds and profile scripts
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/ticker
+
+# Run scripts regardless of errors
+ExecStart=/bin/bash -c "/usr/bin/python3 mfunds_ses.py; /usr/bin/python3 asset.py"
+StandardOutput=append:/home/ec2-user/gx.log
+StandardError=append:/home/ec2-user/gx.log
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# RELOAD AND ENABLE
+sudo systemctl daemon-reload
+sudo systemctl enable mfunds.service
+sudo systemctl restart mfunds.service

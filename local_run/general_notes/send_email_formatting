@@ -1,0 +1,26 @@
+subject = "Hello ChatGPT"
+
+text_body = """Hello,
+We have an updated delivery estimate for your Amazon order...
+"""
+
+html_body = """
+<html>
+<body>
+<p>Hello,</p>
+<p>We have an updated delivery estimate for your Amazon order...</p>
+</body>
+</html>
+"""
+
+ses.send_email(
+    Source="winthutaye@gmail.com",
+    Destination={"ToAddresses": ["recipient@example.com"]},
+    Message={
+        "Subject": {"Data": subject},
+        "Body": {
+            "Text": {"Data": text_body},
+            "Html": {"Data": html_body}
+        }
+    }
+)
