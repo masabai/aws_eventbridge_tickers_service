@@ -41,6 +41,7 @@ graph LR
 ### Trigger
 AWS EventBridge starts the EC2 instance at a scheduled time.
 
+## EventBridge Start Instance
 
 ![Start Instance](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/start_instance.png)
 
