@@ -1,4 +1,6 @@
-# Scheduled Portfolio Tracker (AWS EC2 + Python)
+# Production-Ready Portfolio Tracker with Event Scheduling
+Automated daily portfolio reporting using AWS EventBridge, EC2 lifecycle automation, and systemd-managed services.
+
 
 ## The Problem
 A client who needs a daily email update on their **$200k portfolio**, but they didn't want to pay for
