@@ -64,7 +64,7 @@ Clean, easy-to-read email reports were sent using **Amazon SES**.
 
 **NOTE:**
 
-(Portfolio holdings, values, and email recipients are DEMONSTRATION DATA ONLY. This project showcases automation, 
+(Portfolio holdings, values, and email recipients are **DEMONSTRATION DATA** ONLY. This project showcases automation, 
 reporting, and AWS service integration.)
 
 ![Portfolio Report](https://github.com/masabai/aws_eventbridge_tickers_service/raw/main/screenshots/portfolio_report.png)
