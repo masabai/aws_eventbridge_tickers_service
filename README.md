@@ -1,5 +1,5 @@
 # Production-Ready Portfolio Tracker with Event Scheduling
-Automated daily portfolio reporting using AWS EventBridge, EC2 lifecycle automation, and systemd-managed services.
+Automated daily portfolio reporting on a scheduled EC2 instance, with systemd launching Python scripts at startup.
 
 
 ## The Problem
