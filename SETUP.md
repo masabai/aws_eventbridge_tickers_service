@@ -2,11 +2,15 @@
 In the same folder where your asset.py and mfunds_ses.py
 create a new file named exactly Dockerfile (no file extension).
 
+https://github.com/masabai/aws_eventbridge_tickers_service/blob/main/phase2_k8/Dockerfile
+
 **Step 2:** Build the Image (Creating the "Box")
 docker build -t financial-monitor:latest .
 
 **Step 3.** Load the Keys (The Vault)
 kubectl apply -f secrets.yaml
+
+https://github.com/masabai/aws_eventbridge_tickers_service/blob/main/phase2_k8/secrets.yml
 
 **Step 4.** Trigger the Manual Test (The "Run Now")
 kubectl delete job manual-test-run --ignore-not-found
