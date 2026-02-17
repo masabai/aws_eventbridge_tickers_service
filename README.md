@@ -31,10 +31,6 @@ graph TD
     subgraph "Phase 1: AWS EC2"
     A[EventBridge] --> B[EC2 Instance]
     B --> C[systemd]
-    endgraph TD
-    subgraph "Phase 1: AWS EC2"
-    A[EventBridge] --> B[EC2 Instance]
-    B --> C[systemd]
     end
 
     subgraph "Phase 2: Kubernetes"
@@ -45,14 +41,15 @@ graph TD
     C --> G[SES Email]
     E --> G
 
+    %% Final Professional Color Palette
+    style A fill:#FF4F8B,stroke:#333,color:#fff
+    style B fill:#FF9900,stroke:#333,color:#fff
+    style C fill:#000000,stroke:#333,color:#0f0
+    style D fill:#8a2be2,stroke:#333,color:#fff
+    style E fill:#2496ed,stroke:#333,color:#fff
+    style F fill:#8a2be2,stroke:#333,color:#fff
+    style G fill:#1b5e20,stroke:#333,color:#fff
 
-    subgraph "Phase 2: Kubernetes"
-    D[K8s CronJob] --> E[Docker Container]
-    E --> F[K8s Secrets]
-    end
-
-    C --> G[SES Email]
-    E --> G
 ```
 
 
