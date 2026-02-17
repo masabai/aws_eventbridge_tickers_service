@@ -10,6 +10,8 @@ docker build -t financial-monitor:latest .
 **Step 3.** Load the Keys (The Vault)
 kubectl apply -f secrets.yaml
 
+https://github.com/masabai/aws_eventbridge_tickers_service/blob/main/phase2_k8/secrets.yml
+
 **Step 4.** Trigger the Manual Test (The "Run Now")
 kubectl delete job manual-test-run --ignore-not-found
 kubectl create job --from=cronjob/financial-monitor-job manual-test-run
