@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: financial-monitor-job
+spec:
+  schedule: "00 15 * * 1-5" # 3:00 PM Mon-Fri
+  timeZone: "America/Los_Angeles" # CA Time
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: monitor
+            image: financial-monitor:latest # docker build -t financial-monitor:latest .
+            imagePullPolicy: Never          # Crucial: uses local image
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-creds
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-creds
+                    key: AWS_SECRET_ACCESS_KEY
+          restartPolicy: OnFailure

@@ -4,31 +4,55 @@ Automated daily portfolio reporting on a scheduled EC2 instance, with systemd la
 
 ## The Problem
 
-A client wanted a daily email summary of their $200k investment portfolio delivered automatically after the market closes, with a reliable, hands-off process requiring no manual effort.
+A client wanted a daily email summary of their $200k investment portfolio delivered automatically 
+after the market closes, with a reliable, hands-off process requiring no manual effort.
 
 ---
 
-## The Solution
-Designed a **Start → Run → Stop** automation system on AWS.
+**Phase I:** AWS EC2 & EventBridge Automation
+Designed a Start → Run → Stop automation system on AWS. Instead of running continuously,
+the server wakes up for ~10 minutes per day to complete the task and then shuts down.
 
-Instead of running continuously, the server wakes up for ~10 minutes per day to complete the task and then shuts down.
+
+**Phase II:** Kubernetes (K8s) Modernization
+I upgraded the project into a containerized microservice to learn modern cloud-native orchestration and secure 
+credential management.
+
+Setup & Deployment
+Detailed step-by-step instructions for Docker builds, K8s Secrets, and CronJob scheduling are located in the SETUP.md 
+file at the root of this project.
 
 
 ## Data Processing Workflow
 
 
 ```mermaid
-graph LR
-    A[EventBridge Schedule] -- Start --> B[AWS EC2]
-    B --> C(Python Script)
-    C --> D{Ticker Mapping}
-    D -->E[Cost-Basis Report]
-    E --> F[Automated Email]
-    B -- Stop --> A
+graph TD
+    subgraph "Phase 1: AWS EC2"
+    A[EventBridge] --> B[EC2 Instance]
+    B --> C[systemd]
+    endgraph TD
+    subgraph "Phase 1: AWS EC2"
+    A[EventBridge] --> B[EC2 Instance]
+    B --> C[systemd]
+    end
 
-    style B fill:#f90,stroke:#333,color:#fff
-    style D fill:#4a148c,stroke:#333,color:#fff
-    style F fill:#1b5e20,stroke:#333,color:#fff
+    subgraph "Phase 2: Kubernetes"
+    D[K8s CronJob] --> E[Docker Container]
+    F[K8s Secrets] --> E
+    end
+
+    C --> G[SES Email]
+    E --> G
+
+
+    subgraph "Phase 2: Kubernetes"
+    D[K8s CronJob] --> E[Docker Container]
+    E --> F[K8s Secrets]
+    end
+
+    C --> G[SES Email]
+    E --> G
 ```
 
 
