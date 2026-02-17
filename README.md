@@ -1,4 +1,4 @@
-# Production-Ready Portfolio Tracker with Event Scheduling
+# Investment Tracker with Event Scheduling
 Automated daily portfolio reporting on a scheduled EC2 instance, with systemd launching Python scripts at startup.
 
 
